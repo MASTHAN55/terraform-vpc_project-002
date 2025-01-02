@@ -5,6 +5,9 @@ provider "aws" {
 # Create VPC
 resource "aws_vpc" "project_vpc" {
   cidr_block = "10.0.0.0/16"
+tags = {
+    Name = "project_vpc"
+  }
  }
 
 # Create Subnet
@@ -12,11 +15,17 @@ resource "aws_subnet" "project_subnet" {
   vpc_id            = aws_vpc.project_vpc.id
   cidr_block        = "10.0.1.0/24"
   availability_zone = "ap-south-1a"
+tags = {
+    Name = "project_subnet"
+  }
 }
 
 # Create Internet Gateway
 resource "aws_internet_gateway" "project_igw" {
   vpc_id = aws_vpc.project_vpc.id
+tags = {
+    Name = "project_igw"
+  }
 }
 
 # Create Route Table
@@ -26,6 +35,9 @@ resource "aws_route_table" "project_route_table" {
   route {
     cidr_block = "0.0.0.0/0"
     gateway_id = aws_internet_gateway.project_igw.id
+tags = {
+    Name = "project_route"
+  }
   }
 }
 
@@ -53,6 +65,9 @@ resource "aws_security_group" "project_sg" {
     to_port     = 0
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
+tags = {
+    Name = "project_group"
+  }
   }
 }
 
