@@ -37,7 +37,7 @@ resource "aws_route_table" "project_route_table" {
     gateway_id = aws_internet_gateway.project_igw.id
 tags = {
     Name = "project_route"
-  }
+   }
   }
 }
 
